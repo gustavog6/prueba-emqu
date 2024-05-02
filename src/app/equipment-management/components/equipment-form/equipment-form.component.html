@@ -1,0 +1,186 @@
+<h4 *ngIf="!equipmentId">New Equipment</h4>
+<h4 *ngIf="!edit && equipmentId">Equipment detail</h4>
+<h4 *ngIf="edit">Edit Equipment</h4>
+<form
+    [formGroup]="fgMachine"
+    class="p-fluid"
+    (ngSubmit)="onSubmit()"
+>
+    <div class="flex flex-column md:flex-row">
+        <div class="field col-12 md:col-6 px-0 md:px-0 py-0 md:px-2 md:px-2">
+            <label for="name">Name*</label>
+            <input
+                formControlName="name"
+                id="name"
+                type="text"
+                pInputText
+                [readOnly]="equipmentId && !edit"
+            />
+            <div class="ng-dirty ng-invalid text-red-400 h-1rem">
+                <small *ngIf="isInvalid(fgMachine, 'name', 'required')">
+                    Name is required
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'name', 'minlength')">
+                    Name must be longer than 4 characters.
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'name', 'maxlength')">
+                    Name must not be longer than 30 characters.
+                </small>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6 px-0 py-0 md:px-2">
+            <label for="ipv4">IPV4*</label>
+            <input
+                formControlName="ipv4"
+                id="ipv4"
+                type="text"
+                pInputText
+                [readOnly]="equipmentId && !edit"
+            />
+            <div class="ng-dirty ng-invalid text-red-400 h-1rem">
+                <small *ngIf="isInvalid(fgMachine, 'ipv4', 'required')">
+                    IPV4 is required
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'ipv4', 'minlength')">
+                    IPV4 must be longer than 7 characters.
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'ipv4', 'maxlength')">
+                    IPV4 must not be longer than 15 characters.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-column md:flex-row">
+        <div class="field col-12 md:col-6 px-0 py-0 md:px-2">
+            <label for="mac">MAC*</label>
+            <input
+                formControlName="mac"
+                id="mac"
+                type="text"
+                pInputText
+                [readOnly]="equipmentId && !edit"
+            />
+            <div class="ng-dirty ng-invalid text-red-400 h-1rem">
+                <small *ngIf="isInvalid(fgMachine, 'mac', 'required')">
+                    MAC is required
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'mac', 'minlength')">
+                    MAC must be longer than 17 characters.
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'mac', 'maxlength')">
+                    MAC must not be longer than 17 characters.
+                </small>
+            </div>
+        </div>
+        <div class="field col-12 md:col-6 px-0 py-0 md:px-2">
+            <label for="so">O.S*</label>
+            <input
+                formControlName="os"
+                id="os"
+                type="text"
+                pInputText
+                [readOnly]="equipmentId && !edit"
+            />
+            <div class="ng-dirty ng-invalid text-red-400 h-1rem">
+                <small *ngIf="isInvalid(fgMachine, 'os', 'required')">
+                    O.S is required
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'os', 'minlength')">
+                    O.S must be longer than 3 characters.
+                </small>
+                <small *ngIf="isInvalid(fgMachine, 'os', 'maxlength')">
+                    O.S must not be longer than 30 characters.
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-column md:flex-row">
+        <div class="field col-12 md:col-6 px-0 py-0 md:px-2">
+            <label for="manufacturer">Manufacturer</label>
+            <p-dropdown 
+                formControlName="manufacturer"
+                id="manufacturer"
+                [options]="manufacturers"
+                [readonly]="equipmentId && !edit"
+                placeholder="Select a manufacturer"
+            ></p-dropdown>
+        </div>
+        <div class="field col-12 md:col-6 px-0 py-0 md:px-2">
+            <label for="status">Status</label>
+            <p-dropdown 
+                formControlName="status"
+                id="status"
+                [options]="statuses"
+                [readonly]="equipmentId && !edit"
+                placeholder="Select a status"
+            ></p-dropdown>
+        </div>
+    </div>
+
+    <div class="flex flex-column md:flex-row">
+        <div class="field col-12 px-0 py-0 md:px-2">
+            <label for="description">Description</label>
+            <textarea 
+                rows="5"
+                cols="30"
+                pInputTextarea
+                formControlName="description"
+                id="description"
+                [readOnly]="equipmentId && !edit"
+                [autoResize]="true"
+            ></textarea>
+        </div>
+    </div>
+
+    <div class="flex flex-column md:flex-row">
+        
+        <div
+            class="field col-12 md:col-6 px-0 py-0 md:px-2"
+            *ngIf="!edit && equipmentId"
+        >
+            <button
+                pButton
+                pRipple
+                label="Edit"
+                icon="pi pi-file-edit"
+                class="field md:mr-2"
+                tyleClass="p-button-sm"
+                [routerLink]="['edit']"
+                type="button"
+            ></button>
+        </div>
+
+        <div
+            class="m-auto col-12 md:col-4 p-0"
+            *ngIf="edit || !equipmentId"
+        >
+            <button
+                pButton
+                pRipple
+                label="Save"
+                icon="pi pi-check"
+                class="field"
+                tyleClass="p-button-sm"
+                [disabled]="fgMachine.invalid"
+                type="submit"
+            ></button>
+        </div>
+
+        <div
+            class="field col-12 md:col-6 px-0 py-0 md:px-2"
+            *ngIf="!edit && equipmentId"
+        >
+            <p-button
+                pRipple
+                label="Delete"
+                icon="pi pi-trash"
+                styleClass="p-button-danger p-button-outlined"
+                (click)="onDelete()"
+            ></p-button>
+        </div>
+    </div>
+</form>
+
+<p-confirmDialog styleClass="w-11 md:w-7 lg:w-5 xl:w-4"></p-confirmDialog>
+<p-toast></p-toast>

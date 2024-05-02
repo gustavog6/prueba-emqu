@@ -1,0 +1,43 @@
+<p>Please select a piece of equipment first, and then click on ‘Start’ to initiate the test.</p>
+<div class="flex flex-column justify-content-between align-items-center gap-5">
+    <p-dropdown
+        [formControl]="equipmentControl"
+        id="equipment"
+        [options]="equipments"
+        optionLabel="name"
+        optionValue="_id"
+        placeholder="Select a equipment"
+        [filter]="true"
+        filterBy="name"
+        [showClear]="true"
+    ></p-dropdown>
+    <button pButton type="button" class="start-button" [disabled]="!equipmentControl.valid" (click)="openDialog = true; generateRandomITest()">Start</button>
+</div>
+
+<p-dialog header="Tester" [(visible)]="openDialog" [modal]="true"
+	[breakpoints]="{ '520px': '90vw' }" [draggable]="false" [resizable]="true" (onHide)="closeDialog()">
+	<ng-template pTemplate="content">
+        <div *ngIf="!test ;else result" class="text-center">
+            <h4>Test in progress</h4>
+            <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+            <p>Please wait...</p>
+        </div>
+        <ng-template #result class="text-center">
+            <h4>Test {{ test._id }} results:</h4>
+            <ul class="text-xl">
+                <li>
+                    <b>equipmentId</b>: {{ test.equipmentId }}
+                </li>
+                <li>
+                    <b>type</b>: {{ test.type }}
+                </li>
+                <li>
+                    <b>date</b>: {{ test.date }}
+                </li>
+                <li>
+                    <b>result</b>: {{ test.result }}
+                </li>
+            </ul>
+        </ng-template>
+	</ng-template>
+</p-dialog>

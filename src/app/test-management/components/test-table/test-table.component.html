@@ -1,0 +1,84 @@
+<p-table
+    #dtTest
+    [columns]="cols"
+    [value]="tests"
+    responsiveLayout="scroll"
+    [rows]="10"
+    [globalFilterFields]="[
+        'equipmentId',
+        'equipmentName',
+        'type',
+        'date',
+        'result',
+    ]"
+    [paginator]="true"
+    [rowsPerPageOptions]="[10,20,30]"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
+    <ng-template pTemplate="caption">
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <div class="flex w-full gap-2">
+                <span class="p-input-icon-left mr-1 w-full">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search" (input)="onGlobalFilter(dtTest, $event)"
+                        class="w-full" />
+                </span>
+                <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dtTest.exportCSV()"></button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="min-width: 12rem" pSortableColumn="equipmentId">
+                <div class="flex justify-content-between align-items-center" >
+                    equipmentId
+                    <p-sortIcon field="equipmentId"></p-sortIcon>
+                </div>
+            </th>
+            <th style="min-width: 12rem" pSortableColumn="equipmentName">
+                <div class="flex justify-content-between align-items-center" >
+                    Name
+                    <p-sortIcon field="equipmentName"></p-sortIcon>
+                </div>
+            </th>
+            <th style="min-width: 12rem" pSortableColumn="type">
+                <div class="flex justify-content-between align-items-center">
+                    Test Type
+                    <p-sortIcon field="type"></p-sortIcon>
+                </div>
+            </th>
+            <th style="min-width: 12rem" pSortableColumn="date">
+                <div class="flex justify-content-between align-items-center" >
+                    Date
+                    <p-sortIcon field="date"></p-sortIcon>
+                </div>
+            </th>
+            <th style="min-width: 12rem" pSortableColumn="result">
+                <div class="flex justify-content-between align-items-center">
+                    Result
+                    <p-sortIcon field="result"></p-sortIcon>
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-test>
+        <tr>
+            <td>
+                {{ test.equipmentId }}
+            </td>
+            <td>
+                {{ test.equipmentName }}
+            </td>
+            <td>
+                {{ test.type }}
+            </td>
+            <td>
+                {{ test.date}}
+            </td>
+            <td>
+                {{ test.result}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
