@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { IMachine } from 'src/app/shared/interfaces/IMachine';
+import { manufacturers, statuses } from 'src/app/shared/constants/manufacturers';
 import { CrudService } from 'src/app/shared/services/crud.service';
+import { IdGeneratorService } from 'src/app/shared/services/id-generator.service';
 
 @Component({
     selector: 'app-equipment-form',
@@ -11,8 +12,6 @@ import { CrudService } from 'src/app/shared/services/crud.service';
     styleUrl: './equipment-form.component.scss',
 })
 export class EquipmentFormComponent implements OnInit {
-    // selectedMachine: IMachine;
-
     equipmentId: string;
 
     action: string;
@@ -21,25 +20,9 @@ export class EquipmentFormComponent implements OnInit {
 
     fgMachine!: UntypedFormGroup;
 
-	isDisplay: boolean = false;
-
-	manufacturers = [
-		{ label: 'Lenovo', value: 'Lenovo' },
-		{ label: 'HP', value: 'HP' },
-		{ label: 'Dell', value: 'Dell' },
-		{ label: 'Apple', value: 'Apple' },
-		{ label: 'Acer', value: 'Acer' },
-		{ label: 'Toshiba', value: 'Toshiba' },
-		{ label: 'ASUS', value: 'ASUS' },
-		{ label: 'Samsung', value: 'Samsung' },
-		{ label: 'Sony (VAIO)', value: 'Sony (VAIO)' },
-		{ label: 'LG', value: 'LG' }
-	  ];
+	manufacturers = manufacturers;
 	  
-	  statuses = [
-		{ label: 'Active', value: 'Active' },
-		{ label: 'Inactive', value: 'Inactive' }
-	  ];
+    statuses = statuses;
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -48,6 +31,7 @@ export class EquipmentFormComponent implements OnInit {
 		private _router: Router,
 		private _confirmationService: ConfirmationService,
 		private _messageService: MessageService,
+        private _idGeneratorService: IdGeneratorService
     ) {}
 
     ngOnInit() {
@@ -111,11 +95,6 @@ export class EquipmentFormComponent implements OnInit {
 
 	onSubmit() {
 		const machine = this.fgMachine.value;
-        // const path = this.equipmentId
-        //     ? `/provider/${this.equipmentId}`
-        //     : '/provider/save';
-
-        this.isDisplay = true;
 
         if (this.equipmentId) {
 			this._crudService.update('equipment', this.equipmentId , machine)
@@ -123,13 +102,12 @@ export class EquipmentFormComponent implements OnInit {
             return;
         }
 
-		machine._id = this.createId();
+		machine._id = this._idGeneratorService.createId();
 		this._crudService.save('equipment', machine);
 		this._router.navigate(['/equipment'])
     }
 
 	onDelete() {
-		console.log('delete');
 		this._confirmationService.confirm({
             header: 'Confirm',
             message: `Do you want to delete this Equipment?`,
@@ -159,9 +137,4 @@ export class EquipmentFormComponent implements OnInit {
             form.controls[control].touched
         );
     }
-
-	private createId(): string {
-		const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		return Array.from({length: 5}, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
-	}
 }

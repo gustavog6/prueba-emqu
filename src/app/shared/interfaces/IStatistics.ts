@@ -1,7 +1,7 @@
 import { IGeneric } from './IGeneric';
 
 export interface IStatistics extends IGeneric {
-    name: stats[];
+    stats: stats[];
     totalPass: number;
     totalFail: number;
     total: number;
@@ -9,5 +9,7 @@ export interface IStatistics extends IGeneric {
 
 interface stats {
     equipmentId: string;
+	testId: string;
     result: string;
+	date?: string;
 }

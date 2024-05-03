@@ -21,7 +21,6 @@ export class TestTableComponent {
 
     constructor(private _crudService: CrudService, private _testChage: TesterChangeService) {
         this._testChage.onNewTest().subscribe((res) => {
-            console.log('new', res);
             this.getTests();
         })
     }
@@ -41,13 +40,13 @@ export class TestTableComponent {
         const tests = this._crudService.getAll('test') as ITest[];
         const equipments = this.getEquipments();
         this.tests = this.addEquipmentName(tests, equipments);
-        console.log(this.tests);
     }
 
     getEquipments() {
         return this._crudService.getAll('equipment') as IMachine[];
     }
 
+    // preapra la información obtenida para el formato en el que se va a necesitar
     addEquipmentName(tests: ITest[], equipments: IMachine[]): ITest[] {
         return tests.map((test) => {
             const equipment = equipments.find(

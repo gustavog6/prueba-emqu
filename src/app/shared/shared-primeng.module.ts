@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
@@ -15,29 +14,29 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-
-
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
-  declarations: [],
-  imports: [],
-  exports: [
-    TableModule,
-    TooltipModule,
-    ButtonModule,
-    InputTextModule,
-		InputNumberModule,
-		InputTextareaModule,
-    InputMaskModule,
-    ToastModule,
-    ToolbarModule,
-    ConfirmDialogModule,
-    DropdownModule,
-    InputTextareaModule,
-    CardModule,
-    DialogModule,
-    ProgressSpinnerModule 
-  ],
-  providers: [MessageService, ConfirmationService],
+    declarations: [],
+    imports: [],
+    exports: [
+        TableModule,
+        TooltipModule,
+        ButtonModule,
+        InputTextModule,
+        InputNumberModule,
+        InputTextareaModule,
+        InputMaskModule,
+        ToastModule,
+        ToolbarModule,
+        ConfirmDialogModule,
+        DropdownModule,
+        InputTextareaModule,
+        CardModule,
+        DialogModule,
+        ProgressSpinnerModule,
+        ChartModule,
+    ],
+    providers: [MessageService, ConfirmationService],
 })
-export class SharedPrimengModule { }
+export class SharedPrimengModule {}

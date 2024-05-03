@@ -14,6 +14,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { CrudService } from './shared/services/crud.service';
 import { BrowserModule } from '@angular/platform-browser';
 
+// función para insertar datos en el localstorage previo a que se monte la app
 export function initLocalStorage(localStorageInitService: CrudService) {
     return () => localStorageInitService.init();
 }
@@ -25,14 +26,9 @@ export function initLocalStorage(localStorageInitService: CrudService) {
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService,
-        CrudService, // Asegúrate de agregar CrudService a tus proveedores
-        { provide: APP_INITIALIZER, useFactory: initLocalStorage, deps: [CrudService], multi: true } // Agrega tu función initLocalStorage a los APP_INITIALIZER
+        CrudService,
+        { provide: APP_INITIALIZER, useFactory: initLocalStorage, deps: [CrudService], multi: true }
       ],
-    // providers: [
-    //     { provide: LocationStrategy, useClass: PathLocationStrategy },
-    //     CountryService, CustomerService, EventService, IconService, NodeService,
-    //     PhotoService, ProductService
-    // ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,33 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="flex flex-column md:flex-row">
+            <div class="field col-12 md:col-6 px-0 md:px-0 py-0 md:px-2 md:px-2">
+                <div class="card flex flex-column align-items-center">
+                    <h5 class="text-left w-full">Yearly Results Bar Chart</h5>
+                    <app-total-bar-chart [data]="statistics"></app-total-bar-chart>
+                </div>
+            </div>
+            <div class="field col-12 md:col-6 px-0 md:px-0 py-0 md:px-2 md:px-2">
+                <div class="card flex flex-column align-items-center">
+                    <h5 class="text-left w-full">Monthly Results linear Chart</h5>
+                    <app-monthly-linear-chart [data]="statistics"></app-monthly-linear-chart>
+                </div>
+            </div>
+            
+        </div>
+        <div class="flex flex-column md:flex-row">
+            <div class="field col-12 md:col-6 px-0 py-0 md:px-2">
+                <div class="card flex flex-column align-items-center">
+                    <h5 class="text-left w-full">Result by Equipment Donut Chart</h5>
+                    <app-equipment-donut-chart [data]="statistics" [equipments]="equipments"></app-equipment-donut-chart>
+                </div>
+            </div>
+            <div class="field col-12 md:col-6 px-0 py-0 md:px-2">
+                <div class="card flex flex-column align-items-center">
+                    <h5 class="text-left w-full">Total Results Pie Chart</h5>
+                    <app-total-pie-chart [data]="statistics"></app-total-pie-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

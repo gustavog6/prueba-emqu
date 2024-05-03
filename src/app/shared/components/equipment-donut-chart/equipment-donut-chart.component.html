@@ -1,0 +1,15 @@
+<div class="text-center">
+    <p-dropdown
+        [formControl]="equipmentControl"
+        id="equipment"
+        [options]="equipments"
+        optionLabel="name"
+        optionValue="_id"
+        placeholder="Select a equipment"
+        [filter]="true"
+        filterBy="name"
+        [showClear]="true"
+    ></p-dropdown>
+    <p-chart type="doughnut" [data]="donutData" [options]="donutOptions"></p-chart>
+    <b>Total</b>: {{ total }}
+</div>
